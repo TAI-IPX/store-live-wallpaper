@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Windows 壁纸助手 · 交互 Demo</title>
-<meta http-equiv="refresh" content="0;url=./demo/index.html">
+<noscript><meta http-equiv="refresh" content="0;url=./demo/index.html"></noscript>
 <style>
   html,body{height:100%;margin:0;background:#0b0d12;color:#e8ecf4;
     font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
@@ -19,8 +19,14 @@
   <div class="wrap">
     <div class="card">
       <h1>Windows 壁纸助手 · 交互 Demo</h1>
-      <p>正在进入 Demo… 如果没有自动跳转，请点击 <a href="./demo/index.html">demo/index.html</a></p>
+      <p>正在进入 Demo… 如果没有自动跳转，请点击 <a id="go" href="./demo/index.html">demo/index.html</a></p>
     </div>
   </div>
+<script>
+  // 保留 ?s=desktop / ?assist=1 这类深链，把查询串和 hash 一起带到 demo 页
+  var target = './demo/index.html' + location.search + location.hash;
+  document.getElementById('go').href = target;
+  location.replace(target);
+</script>
 </body>
 </html>
