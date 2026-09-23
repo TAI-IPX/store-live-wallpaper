@@ -4,7 +4,9 @@
 
 ## 在线预览
 
-GitHub Pages：`https://<user>.github.io/<repo>/`（根目录会跳转到 `demo/index.html`）
+**https://tai-ipx.github.io/store-live-wallpaper/** —— 根目录自动跳转到 `demo/index.html`。
+
+> 由 GitHub Pages 从 `main` 分支根目录发布；页面本身是纯静态资源，不需要任何构建。
 
 也可以直接打开 `demo/index.html`，但**必须用 http 服务**——壁纸与字体通过相对路径加载，`file://` 下会被浏览器拦截：
 
