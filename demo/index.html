@@ -225,6 +225,9 @@ svg.ico{display:block;flex:none}
   font-size:13px;color:#fff;transition:background .14s}
 .a-sub button:hover{background:#FFFFFF14}
 .a-sub .ico{color:var(--win-dim)}
+/* k2boA 唤起屏保：行尾的 Ctrl + L 键帽，与画板同参数（#FFFFFF1F / r5 / 高 20 / 内边距 0 6 / 11px） */
+.a-sub .kbd{height:20px;padding:0 6px;border-radius:5px;background:#FFFFFF1F;color:var(--win-dim);
+  font-size:11px;font-family:var(--font-cn);display:flex;align-items:center;flex:none}
 .a-rule{height:1px;background:#FFFFFF1F}
 /* TQO4T 壁纸频道：整行只是标题，不可点、无 hover —— 只有右侧「查看更多」胶囊可点 */
 .a-channel{height:32px;padding:0 8px;justify-content:space-between}
@@ -542,7 +545,7 @@ $('#screenDesktop').innerHTML = `
       </div>
 
       <div class="a-sub">
-        <button data-act="lock">${icon('monitor',16)}<span>唤起屏保</span></button>
+        <button data-act="lock">${icon('monitor',16)}<span>唤起屏保</span><span class="kbd">Ctrl + L</span></button>
         <button data-act="dynamic" id="subDynamic">${icon('eye-off',16)}<span>关闭动态壁纸</span></button>
         <button data-act="setting">${icon('settings',16)}<span>设置壁纸轮播</span></button>
       </div>
