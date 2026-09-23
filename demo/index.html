@@ -111,7 +111,10 @@ svg.ico{display:block;flex:none}
   display:flex;flex-direction:column;gap:2px;box-shadow:0 8px 26px rgba(0,0,0,.10);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
-.menu.on{opacity:1;transform:translateY(0);pointer-events:auto}
+.menu.on{opacity:1;transform:translateY(0)}
+/* 子级 pointer-events:auto 会覆盖父级 .screen 的 none：菜单属于锁屏，若在别的屏上
+   还留着 .on，就会继续吃掉那一屏的点击。所以「可交互」要绑定「本屏是当前屏」。 */
+.screen.on .menu.on{pointer-events:auto}
 .menu button{height:34px;border-radius:10px;padding:0 12px;gap:10px;display:flex;align-items:center;
   font-size:13px;color:#fff;transition:background .14s,border-radius .14s}
 .menu button span{white-space:nowrap}
@@ -260,14 +263,17 @@ svg.ico{display:block;flex:none}
   opacity:0;transform:scale(.955);transform-origin:50% 58%;pointer-events:none;
   transition:opacity .2s ease,transform .3s cubic-bezier(.2,.9,.25,1)}
 .desk-app.launching{opacity:1;transform:scale(.986)}
-.desk-app.on{opacity:1;transform:scale(1);pointer-events:auto}
+.desk-app.on{opacity:1;transform:scale(1)}
 .app-view{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;pointer-events:none;
   transition:opacity .26s ease;background-size:cover;background-position:center;background-repeat:no-repeat}
 .app-view.on{opacity:1}
-/* 关键：子级 pointer-events:auto 会覆盖父级 .desk-app 的 none —— 窗口明明没打开，
-   却仍然拦住锁屏底部的点击（今日精选 BMgDr / 热门壁纸缩略图）。
-   所以「可交互」必须绑定「窗口已打开」，不能只看视图自身。 */
-.desk-app.on .app-view.on{pointer-events:auto}
+/* 关键：子级 pointer-events:auto 会覆盖父级 .screen / .desk-app 的 none —— 窗口明明
+   没打开、或者已经切到别的屏，却仍然拦住当前屏的点击（今日精选 BMgDr / 热门壁纸缩略图 /
+   日历卡片 kGynP）。所以「可交互」必须**同时**绑定「窗口已打开」与「本屏是当前屏」，
+   不能只看窗口自身的状态：否则从壁纸详情页 / 壁纸轮播设置里的「唤起屏保」进锁屏后，
+   窗口虽已切走，仍留在原地（270,160 1060×680）吃掉锁屏底部小组件行的点击。 */
+.screen.on .desk-app.on,
+.screen.on .desk-app.on .app-view.on{pointer-events:auto}
 
 /* 详情页（w7MSg）：底图就是设计稿本身，只把「会变的地方」用绝对定位盖住重建 */
 .d-title{position:absolute;left:226px;top:86px;width:360px;height:38px;background:#FFFFFF;
