@@ -238,7 +238,8 @@ svg.ico{display:block;flex:none}
 .a-channel .left{display:flex;align-items:center;gap:10px}
 .a-channel .left .ico{color:var(--win-dim)}
 .a-channel .left span{font-size:13px;color:#fff}
-.a-chip{height:25px;padding:5px 10px;border-radius:999px;background:#FFFFFF1F;font-size:11px;color:var(--win-dim);
+/* DqAiM / UcQCx 今日精选：与 BMgDr 完全一致（56×21 = 4 + 13 + 4，字号 10）*/
+.a-chip{height:21px;padding:4px 8px;border-radius:999px;background:#FFFFFF1F;font-size:10px;color:var(--win-dim);
   display:flex;align-items:center;cursor:pointer;transition:background .14s,color .14s}
 .a-chip:hover{background:#FFFFFF33;color:#fff}
 /* rjDsr + MBuYL 排行榜：与锁屏「热门壁纸」同款 —— 三格横排 + 排名角标（不是竖排列表）
@@ -914,9 +915,22 @@ function openDetail(i){
   state.appView = 'detail';
   openApp();
 }
-$('#rankMore').addEventListener('click', openApp);
+// 三个「查看更多」入口（锁屏 BMgDr / 桌面挂件 UcQCx / 入口浮窗 DqAiM）跳转完全一致：
+// 一律落到壁纸库列表页。窗口已经开着时直接切视图，不再拆掉重来 —— 否则会闪一下，
+// 并且在详情页 / 设置页点它只会回到原页，看起来像没反应。
+function goLibrary(){
+  if(state.appPhase === 'open'){
+    state.appView  = 'library';
+    state.assist   = false;
+    state.assistPin = false;
+    render();
+    return;
+  }
+  openApp('library');
+}
+$('#rankMore').addEventListener('click', goLibrary);
 // TQO4T 壁纸频道：行本身不可点，只有「查看更多」胶囊 → 壁纸库
-$('#assistMore').addEventListener('click', openApp);
+$('#assistMore').addEventListener('click', goLibrary);
 
 // calendar
 $('#calPrev').addEventListener('click', ()=>{ state.week--; renderCalendar(); });
